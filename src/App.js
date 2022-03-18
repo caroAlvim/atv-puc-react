@@ -32,16 +32,13 @@ class App extends Component{
   verifyAccess(){
     let password = this.state.password;
     let email = this.state.email;
-    let accessAccept = 'Acesso permitido.';
-    let accessDenied = 'Acesso negado';
+    let accessAccept = 'Acessado com sucesso!';
+    let accessDenied = 'Usuário ou senha incorretos!';
 
     if(password === '123456' && email === 'carol@mail.com'){
       this.setState({message: accessAccept})
-      console.log('Permitido')
-
-    } else{
+    } else {
       this.setState({message:accessDenied});
-      console.log('negado')
     }
   }
 
