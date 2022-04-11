@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import '../../services/Firebase'
 import '../../App.css';
 
-class Home extends Component{
+class Cadastro extends Component{
   constructor(props){
     super(props);
   }
 }
 
-export default Home;
+export default Cadastro;
