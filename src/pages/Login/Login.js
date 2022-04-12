@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import '../../services/Firebase'
+// import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
 import '../../App.css';
 
 class Login extends Component{
@@ -41,6 +43,10 @@ class Login extends Component{
     } else {
       this.setState({message:accessDenied});
     }
+
+    // conectar com validacao do firebase
+    // redirecionar para Home
+    
   }
 
 
