@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import Routes from './Routes'
+import Rotas from './Routes';
 import reportWebVitals from './reportWebVitals';
+import './firebase';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Routes />
+    <Rotas />
   </React.StrictMode>,
   document.getElementById('root')
 );
