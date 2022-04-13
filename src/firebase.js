@@ -4,7 +4,6 @@ import "firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCe8PSjt5ND3VFeHpmvaNtI8WId5Iwq6cU",
   authDomain: "fir-react-47b57.firebaseapp.com",
@@ -18,9 +17,6 @@ const firebaseConfig = {
 if(!firebase.apps.length){
   firebase.initializeApp(firebaseConfig) 
 }
-
-// Initialize Firebase
-// const app = initializeApp(firebaseConfig);
 
 export const auth = firebase.auth()
 export default firebase;

@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-// import firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
-import 'firebase/auth';
+import { getAuth } from 'firebase/auth';
+import { Link } from 'react-router-dom';
 import '../../App.css';
+
 
 class Login extends Component{
   constructor(props){
@@ -18,6 +20,7 @@ class Login extends Component{
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.verifyAccess = this.verifyAccess.bind(this);
+    this.authUser = this.authUser.bind(this);
   }
 
   handleSubmit(e){
@@ -32,6 +35,35 @@ class Login extends Component{
     this.setState({password: e.target.value})
   }
 
+  authUser(){
+    let accessAccept = 'Acessado com sucesso!';
+    let accessDenied = 'Usuário ou senha incorretos!';
+
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    .then(userCredential => {
+      try{
+        const user = userCredential.user;
+        console.log(user.email)
+        firebase.auth().onAuthStateChanged(user => {
+          if(user !== null){
+            this.setState({message: accessAccept});
+            // window.location.href='/home'
+          } else {
+            this.setState({message:accessDenied});
+          }
+        })
+        
+      }
+      catch(error){
+        let errorCode = error.code
+        let errorMessage = error.message
+        console.log(errorMessage)
+        console.log(errorCode)
+      }
+    })
+  } 
+
+
   verifyAccess(){
     let password = this.state.password;
     let email = this.state.email;
@@ -40,10 +72,10 @@ class Login extends Component{
 
     if(password === '123456' && email === 'carol@mail.com'){
       this.setState({message: accessAccept})
+      this.userLogged()
     } else {
       this.setState({message:accessDenied});
     }
-
     // conectar com validacao do firebase
     // redirecionar para Home
     
@@ -64,7 +96,8 @@ class Login extends Component{
           <input type='password' name='password' id='pwd-id' size='40' placeholder='Senha' value={this.state.password} onChange={this.handlePassword} required/> 
           <br/>
           <br/>
-          <button onClick={this.verifyAccess} type='submit'> Acessar </button>        
+          <button onClick={this.authUser} type='submit'> Acessar </button>        
+          <Link to='/cadastrar' ><button> Cadastrar </button>  </Link>
         </form>  
 
       <h2> {this.state.message} </h2>
