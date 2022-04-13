@@ -1,0 +1,13 @@
+.btn-global{
+    padding: 0.5rem ;
+    border-radius: 2rem;
+    background-color: #f3bb8aeb;
+    border: none;
+    cursor: pointer;
+    color: white;
+    width: 7rem;
+    margin: 0.5rem;
+    transition: .2s;
+    font-size: 16px;
+    
+}

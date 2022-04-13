@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { Link } from 'react-router-dom';
+import Button from '../../components/Button/buton';
 import '../../App.css';
 
 
@@ -44,14 +45,14 @@ class Login extends Component{
       try{
         const user = userCredential.user;
         console.log(user.email)
-        firebase.auth().onAuthStateChanged(user => {
+        // firebase.auth().onAuthStateChanged(user => {
           if(user !== null){
             this.setState({message: accessAccept});
-            // window.location.href='/home'
+            window.location.href='/home'
           } else {
             this.setState({message:accessDenied});
           }
-        })
+       //  })
         
       }
       catch(error){
@@ -86,7 +87,6 @@ class Login extends Component{
     return(
       <div className="App">
         <h1 className="txt-login">login</h1>
-
         <form onSubmit={this.handleSubmit}>
           <label id='email-id'></label>
           <input type='text' name='email' id='email-id' size='40' placeholder='Email' value={this.state.email} onChange={this.handleEmail} required/> 
@@ -96,8 +96,8 @@ class Login extends Component{
           <input type='password' name='password' id='pwd-id' size='40' placeholder='Senha' value={this.state.password} onChange={this.handlePassword} required/> 
           <br/>
           <br/>
-          <button onClick={this.authUser} type='submit'> Acessar </button>        
-          <Link to='/cadastrar' ><button> Cadastrar </button>  </Link>
+          <Button buttonOnClick={this.authUser} type='submit'> Acessar </Button>        
+          <Link to='/cadastrar' ><Button> Cadastrar </Button>  </Link>
         </form>  
 
       <h2> {this.state.message} </h2>

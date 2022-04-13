@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import Button from '../../components/Button/buton';
 import '../../App.css';
-
-
-const currentUser = () => firebase.auth().currentUser;
-
 
 class Home extends Component {
     constructor(props) {
@@ -14,13 +11,46 @@ class Home extends Component {
 
         this.state = {
             dados: [],
+            user: [],
             message: ''
         }
 
+        // this.getUser = this.getUser.bind(this);
         this.getUsers = this.getUsers.bind(this);
         this.signOut = this.signOut.bind(this);
     }
 
+    // let user = firebase.auth().currentUser;
+    // if(user !== null){
+    //     const displayName = user.displayName
+    //     return displayName;
+    // }
+
+    // getUser(){
+    //     const user = firebase.auth().currentUser;
+    //     if(user !== null){
+    //         displayName = user.displayName
+    //     }
+
+
+        
+        // ().then((user) => {
+        //     const state = this.state;
+
+        //     user.forEach(item => {
+        //         state.user.push({
+        //             id: item.data().id,
+        //             name: item.data().nome,
+        //             email: item.data().email
+        //         })
+        //     })
+        //     this.setState(state)
+        // });
+        
+        // if (user !== null) {
+        // return user.displayName;
+        // }
+    // }
 
     getUsers() {
         firebase.firestore().collection('usuarios').get().then((item) => {
@@ -57,24 +87,31 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div className="App">
+                <Button buttonOnClick={this.signOut}> Sair </Button>  
+                <h1>{this.state.message}</h1>
                 <h1> Usuários </h1>
-                <button onClick={this.getUsers}> Listar </button>
+                {/* <h2>Bem vindo, {displayName} </h2> */}
+                {/* <button onClick={this.getUser}> oi </button>
+                {this.state.user.map((u) => {
+                    return(
+                        <h2>Bem vindo, {u.name} </h2>
+                    )
+                })} */}
+                <Button buttonOnClick={this.getUsers}> Listar </Button>
                 {
                     this.state.dados.map((item) => {
                         return(
                             <div key={item.id}>
-                                <span> *** </span>
-                                <h3>Id: {item.id}</h3>
+                                <h4>Id: {item.id}</h4>
                                 <h4> Nome: {`${item.nome} ${item.sobrenome}`}</h4>
                                 <p> Email: {item.email}</p>
                                 <p> Data de nascimento: {item.dataNascimento}</p>
+                                <span> *** </span>
                             </div>
                         )
                     })
                 }
-                <button onClick={this.signOut}> Sair </button>  
-                <h1>{this.state.message}</h1>
             </div>
         )
     }

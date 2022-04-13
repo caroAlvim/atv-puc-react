@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import firebase from 'firebase/app';
+import Button from '../../components/Button/buton';
 import '../../App.css';
 
 class Cadastro extends Component {
@@ -10,29 +11,40 @@ class Cadastro extends Component {
       sobrenome: '',
       email: '',
       dataNascimento: '',
-      password: ''
+      password: '', 
+      message: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.addUser = this.addUser.bind(this);
     this.createUser = this.createUser.bind(this);
   }
 
-  addUser() {
-    firebase.firestore().collection('usuarios').add({
-      nome: this.state.nome,
-      sobrenome: this.state.sobrenome,
-      email: this.state.email,
-      password: this.state.password,
-      dataNascimento: this.state.dataNascimento
-    }).then(this.createUser).then(() => {
-      setTimeout(() => {
-        window.location.href='/'
-     }, 1000)
-    })
-    
-    
-    // adicionar msg de sucesso na gravação
-    // redirecionar para login
+  handleSubmit(e){
+    e.preventDefault();
+  }
 
+  addUser() {
+    let accessAccept = 'Cadastro criado com sucesso!';
+    try {
+      firebase.firestore().collection('usuarios').add({
+        nome: this.state.nome,
+        sobrenome: this.state.sobrenome,
+        email: this.state.email,
+        password: this.state.password,
+        dataNascimento: this.state.dataNascimento
+      }).then(this.createUser).then(() => {
+        this.setState({message: accessAccept})
+        setTimeout(() => {
+          window.location.href='/'
+       }, 1000)
+      })
+    }
+    catch(error){
+      let errorCode = error.code
+      let errorMessage = error.message
+      console.log(errorMessage)
+      console.log(errorCode)
+    }
   }
 
   createUser(){
@@ -41,14 +53,17 @@ class Cadastro extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <h1>Novo Cadastro</h1>
-        <input type="text" placeholder="Nome" onChange={(e) => this.setState({ nome: e.target.value })} /> <br />
-        <input type="text" placeholder="Sobrenome" onChange={(e) => this.setState({ sobrenome: e.target.value })} /> <br />
-        <input type="date" placeholder="01/01/2000" onChange={(e) => this.setState({ dataNascimento: e.target.value})} /> <br />
-        <input type="text" placeholder="Email" onChange={(e) => this.setState({ email: e.target.value })} /> <br />
-        <input type="text" placeholder="Senha" onChange={(e) => this.setState({ password: e.target.value })} /> <br />
-        <button onClick={this.addUser}>Cadastrar</button> <br /><br /><br />
+        <form onSubmit={this.handleSubmit}></form>
+          <input type="text" placeholder="Nome" onChange={(e) => this.setState({ nome: e.target.value })} /> <br /><br />
+          <input type="text" placeholder="Sobrenome" onChange={(e) => this.setState({ sobrenome: e.target.value })} /> <br /> <br />
+          <input type="date" placeholder="01/01/2000" onChange={(e) => this.setState({ dataNascimento: e.target.value})} /> <br /> <br />
+          <input type="text" placeholder="Email" onChange={(e) => this.setState({ email: e.target.value.toLowerCase() })} /> <br /><br />
+          <input type="text" placeholder="Senha" onChange={(e) => this.setState({ password: e.target.value })} /> <br /><br />
+          <Button buttonOnClick={this.addUser}>Cadastrar</Button> <br /><br /><br />
+        <form/>  
+        <h2> {this.state.message} </h2>
       </div>
     )
   }
