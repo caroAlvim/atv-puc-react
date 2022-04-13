@@ -40,7 +40,6 @@
     ]
   },
   "devDependencies": {
-    "firebase-tools": "^10.6.0",
     "netlify-cli": "^9.16.6"
   }
 }
