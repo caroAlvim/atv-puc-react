@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/buton';
 import '../../App.css';
@@ -44,16 +43,13 @@ class Login extends Component{
     .then(userCredential => {
       try{
         const user = userCredential.user;
-        console.log(user.email)
-        // firebase.auth().onAuthStateChanged(user => {
-          if(user !== null){
-            this.setState({message: accessAccept});
-            window.location.href='/home'
-          } else {
-            this.setState({message:accessDenied});
-          }
-       //  })
-        
+        console.log(userCredential)
+        if(user !== null){
+          this.setState({message: accessAccept});
+          window.location.href='/home'
+        } else {
+          this.setState({message:accessDenied});
+        }
       }
       catch(error){
         let errorCode = error.code
