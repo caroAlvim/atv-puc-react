@@ -56,12 +56,12 @@ class Cadastro extends Component {
       <div className="App">
         <h1>Novo Cadastro</h1>
         <form onSubmit={this.handleSubmit}></form>
-          <input type="text" placeholder="Nome" onChange={(e) => this.setState({ nome: e.target.value })} /> <br /><br />
-          <input type="text" placeholder="Sobrenome" onChange={(e) => this.setState({ sobrenome: e.target.value })} /> <br /> <br />
-          <input type="date" placeholder="01/01/2000" onChange={(e) => this.setState({ dataNascimento: e.target.value})} /> <br /> <br />
-          <input type="text" placeholder="Email" onChange={(e) => this.setState({ email: e.target.value.toLowerCase() })} /> <br /><br />
-          <input type="text" placeholder="Senha" onChange={(e) => this.setState({ password: e.target.value })} /> <br /><br />
-          <Button buttonOnClick={this.addUser}>Cadastrar</Button> <br /><br /><br />
+          <input type="text" className="App-input" placeholder="Nome" onChange={(e) => this.setState({ nome: e.target.value })} required /> <br /><br />
+          <input type="text" className="App-input" placeholder="Sobrenome" onChange={(e) => this.setState({ sobrenome: e.target.value })} required /> <br /> <br />
+          <input type="date" className="App-input" placeholder="01/01/2000" onChange={(e) => this.setState({ dataNascimento: e.target.value})} required /> <br /> <br />
+          <input type="text" className="App-input" placeholder="Email" onChange={(e) => this.setState({ email: e.target.value.toLowerCase() })} required /> <br /><br />
+          <input type="text" className="App-input" placeholder="Senha" onChange={(e) => this.setState({ password: e.target.value })} required /> <br /><br />
+          <Button buttonOnClick={this.addUser} type='submit' >Cadastrar</Button> <br /><br /><br />
         <form/>  
         <h2> {this.state.message} </h2>
       </div>

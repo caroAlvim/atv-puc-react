@@ -65,27 +65,33 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="App">
-                <Button buttonOnClick={this.signOut}> Sair </Button>  
-                <h1>{this.state.message}</h1>
-                <h2>Bem vindo, {this.state.email} </h2>
-                <p> Seu ID é: {this.state.uid}</p>
-                <h1> Usuários </h1>
-                <Button buttonOnClick={this.getUsers}> Listar </Button>
-                {
-                    this.state.dados.map((item) => {
-                        return(
-                            <div key={item.id}>
-                                <h4>Id: {item.id}</h4>
-                                <h4> Nome: {`${item.nome} ${item.sobrenome}`}</h4>
-                                <p> Email: {item.email}</p>
-                                <p> Data de nascimento: {item.dataNascimento}</p>
-                                <span> *** </span>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            <>  
+                <div className="App-nav"> 
+                    <div className="App-nav-second">
+                        <h2>Bem vindo, {this.state.email} </h2>
+                        <p> Seu ID é: {this.state.uid}</p>
+                    </div>
+                    <Button buttonOnClick={this.signOut}> Sair </Button> 
+                </div>
+                <div className="App"> 
+                    <h1>{this.state.message}</h1>
+                    <h1> Usuários </h1>
+                    <Button buttonOnClick={this.getUsers}> Listar </Button>
+                    {
+                        this.state.dados.map((item) => {
+                            return(
+                                <div className="App-item" key={item.id}>
+                                    <h4>Id: {item.id}</h4>
+                                    <h4> Nome: {`${item.nome} ${item.sobrenome}`}</h4>
+                                    <p> Email: {item.email}</p>
+                                    <p> Data de nascimento: {item.dataNascimento}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            
+            </>
         )
     }
 }
